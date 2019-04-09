@@ -6,7 +6,9 @@ using UnityEditor;
 
 public class BundleEditor : MonoBehaviour
 {
-	static string path = "Assets/Arts/Data/AssetBundle_Config.asset";
+    static string path = "Assets/Arts/Data/ABundleConfig.asset";
+    static Dictionary<string, string> Dic = new Dictionary<string, string>();
+
 
 	[MenuItem("Tools/BuildABundle")]
 	private static void Build()
@@ -15,7 +17,9 @@ public class BundleEditor : MonoBehaviour
 
 		for (int i = 0; i < config.DirectroyPath.Count; i++)
 		{
-			Debug.Log(config.DirectroyPath[i].path);
+            string DirName =config.DirectroyPath[i].name;
+			string DirPath= config.DirectroyPath[i].path;
+            Dic.Add(DirName, DirPath);
 		}
 	}
 }

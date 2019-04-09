@@ -1,0 +1,16 @@
+﻿<Properties StartupConfiguration="{1598F427-DC03-1A05-4327-BE119356E097}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AssetBundle_Config.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Editor/BundleEditor.cs" Line="16" Column="1" />
+      <File FileName="Assets/Scripts/GameStart.cs" Line="12" Column="1" />
+      <File FileName="Assets/Scripts/AssetBundle_Config.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
