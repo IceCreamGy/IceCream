@@ -7,11 +7,11 @@ using System;
 public class AssetBundle_Config : ScriptableObject
 {
 	//遍历这个文件夹下面所有的Prefab，所有的Prefab的名字不能重复，必须保证名字的唯一性
-	public List<string> PrefabPath = new List<string>();
-	public List<DirInfo> DirectroyPath = new List<DirInfo>();
+	public List<string> m_AllPrefabPath = new List<string>();
+	public List<FileDirABName> DirectroyPath = new List<FileDirABName>();
 
 	[Serializable]
-	public struct DirInfo   //目录信息
+	public struct FileDirABName   //目录信息
 	{
 		public string name;
 		public string path;
