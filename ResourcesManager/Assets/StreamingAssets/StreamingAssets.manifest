@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 2848866579
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: sound
+      Dependencies: {}
+    Info_1:
+      Name: shader
+      Dependencies: {}
+    Info_2:
+      Name: prefab_attack
+      Dependencies:
+        Dependency_0: shader
+    Info_3:
+      Name: prefab_attack2
+      Dependencies:
+        Dependency_0: prefab_attack
