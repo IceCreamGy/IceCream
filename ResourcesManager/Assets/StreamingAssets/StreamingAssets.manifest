@@ -1,18 +1,16 @@
 ManifestFileVersion: 0
-CRC: 2848866579
+CRC: 2983078269
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: sound
+      Name: girl-1
       Dependencies: {}
     Info_1:
-      Name: shader
+      Name: girl-2
       Dependencies: {}
     Info_2:
-      Name: prefab_attack
-      Dependencies:
-        Dependency_0: shader
+      Name: shop
+      Dependencies: {}
     Info_3:
-      Name: prefab_attack2
-      Dependencies:
-        Dependency_0: prefab_attack
+      Name: girl-3
+      Dependencies: {}
