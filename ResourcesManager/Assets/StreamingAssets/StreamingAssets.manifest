@@ -1,16 +1,37 @@
 ManifestFileVersion: 0
-CRC: 2983078269
+CRC: 2167300209
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: girl-1
+      Name: hero2
       Dependencies: {}
     Info_1:
-      Name: girl-2
+      Name: hero3
       Dependencies: {}
     Info_2:
-      Name: shop
+      Name: hero4
       Dependencies: {}
     Info_3:
-      Name: girl-3
+      Name: hero0
       Dependencies: {}
+    Info_4:
+      Name: hero1
+      Dependencies: {}
+    Info_5:
+      Name: hero5
+      Dependencies: {}
+    Info_6:
+      Name: hero6
+      Dependencies: {}
+    Info_7:
+      Name: hero7
+      Dependencies: {}
+    Info_8:
+      Name: scrollview-hero
+      Dependencies:
+        Dependency_0: hero2
+        Dependency_1: hero3
+        Dependency_2: hero4
+        Dependency_3: hero0
+        Dependency_4: hero1
+        Dependency_5: hero5
