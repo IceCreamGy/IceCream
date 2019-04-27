@@ -325,6 +325,12 @@
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>E:/Unity/Unity_2018.2/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="aliyun-net-sdk-Core">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Aliyun/aliyun-net-sdk-Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Aliyun.OSS">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Aliyun/Aliyun.OSS.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>C:/Users/74144/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
@@ -342,12 +348,6 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
-    </Reference>
-    <Reference Include="aliyun-net-sdk-Core">
-      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Aliyun/aliyun-net-sdk-Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Aliyun.OSS">
-      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Aliyun/Aliyun.OSS.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>E:/Unity/Unity_2018.2/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
