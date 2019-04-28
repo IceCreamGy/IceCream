@@ -26,7 +26,7 @@ public class UpLoadControl : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
-		client = new OssClient(Config.EndPoint, Config.AccessKeyId, Config.AccessKeySecret);
+		client = new OssClient(AppConst.EndPoint, AppConst.AccessKeyId, AppConst.AccessKeySecret);
 	}
 
 	#region   上传
@@ -38,7 +38,7 @@ public class UpLoadControl : MonoBehaviour
 			byte[] bytes = Encoding.UTF8.GetBytes(text);
 			using (Stream stream = new MemoryStream(bytes))
 			{
-				client.PutObject(Config.Bucket, fileName, stream);
+				client.PutObject(AppConst.Bucket, fileName, stream);
 				Debug.Log("字符串上传成功：" + text);
 			}
 		}
@@ -63,13 +63,13 @@ public class UpLoadControl : MonoBehaviour
 	{
 		try
 		{
-			foreach (string key in PutPrepare.Dic_UpLoad.Keys)
+			foreach (string key in AssetBundle_UploadInspect.Dic_UpLoadFullPath.Keys)
 			{
-				Debug.Log("path    " + PutPrepare.Dic_UpLoad[key]);
-				using (var fs = File.Open(PutPrepare.Dic_UpLoad[key], FileMode.Open))
+				Debug.Log("path    " + AssetBundle_UploadInspect.Dic_UpLoadFullPath[key]);
+				using (var fs = File.Open(AssetBundle_UploadInspect.Dic_UpLoadFullPath[key], FileMode.Open))
 
 				{
-					var putObjectRequest = new PutObjectRequest(Config.Bucket, key, fs);
+					var putObjectRequest = new PutObjectRequest(AppConst.Bucket, key, fs);
 					putObjectRequest.StreamTransferProgress += streamProgressCallback;
 					client.PutObject(putObjectRequest);
 
@@ -79,7 +79,7 @@ public class UpLoadControl : MonoBehaviour
 		}
 		catch (System.Exception e)
 		{
-			Debug.Log("字符串上传错误：" + e);
+			Debug.Log("AssetBundle上传错误：" + e);
 		}
 		finally
 		{

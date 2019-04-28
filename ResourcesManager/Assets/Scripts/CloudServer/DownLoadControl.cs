@@ -24,7 +24,7 @@ public class DownLoadControl : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		client = new OssClient(Config.EndPoint, Config.AccessKeyId, Config.AccessKeySecret);
+		client = new OssClient(AppConst.EndPoint, AppConst.AccessKeyId, AppConst.AccessKeySecret);
 		LocalPath = Application.persistentDataPath;
 		LocalPath += "/ABData/";
 	}
@@ -51,7 +51,7 @@ public class DownLoadControl : MonoBehaviour
 
 		try
 		{
-			var obj = client.GetObject(Config.Bucket, key);
+			var obj = client.GetObject(AppConst.Bucket, key);
 			using (var requestStream = obj.Content)
 			{
 				byte[] buf = new byte[requestStream.Length];
