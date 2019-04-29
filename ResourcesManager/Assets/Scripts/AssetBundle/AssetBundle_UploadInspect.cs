@@ -5,26 +5,24 @@ using System;
 using System.IO;
 using System.Text;
 using System.Security.Cryptography;
-
+using UnityEditor;
 
 //检索出StreamingAsset 文件夹中，需要上传的AssetBundle
 public class AssetBundle_UploadInspect : MonoBehaviour
 {
 	public List<string> FileList = new List<string>();
 	public static Dictionary<string, string> Dic_UpLoadFullPath = new Dictionary<string, string>();
-	//public static Dictionary<string, string> Dic_UpLoadMD5 = new Dictionary<string, string>();
 	public static Dictionary<string, long> Dic_UpLoadSize = new Dictionary<string, long>();
 
 	public long Res_TotalSize = 0;
 
-	private void Start()
+
+	public void Start()
 	{
-		Debug.Log("开始准备  AB Inspect");
 		Prepare();
 	}
 
-	// Use this for initialization
-	public void Prepare()
+	void Prepare()
 	{
 		string checkPath = Application.streamingAssetsPath;
 		DirectoryInfo dir = new DirectoryInfo(checkPath);
@@ -42,14 +40,9 @@ public class AssetBundle_UploadInspect : MonoBehaviour
 		}
 
 		WriteMD5();
-
-		Debug.Log(" AB Inspect 准备完成  ");
 	}
-
 	void WriteMD5()
 	{
-		Debug.Log("写入  MD5");
-
 		if (!Directory.Exists(AppFacade.instance.Client.GetPersisdentPath()))
 		{
 			Directory.CreateDirectory(AppFacade.instance.Client.GetPersisdentPath());
@@ -57,7 +50,6 @@ public class AssetBundle_UploadInspect : MonoBehaviour
 		if (!File.Exists(AppFacade.instance.Client.GetPersisdentMD5File()))
 		{
 			File.Create(AppFacade.instance.Client.GetPersisdentMD5File()).Dispose();
-			//File.Create(AppFacade.instance.Client.GetPersisdentMD5File());
 		}
 
 		string writePath = AppFacade.instance.Client.GetPersisdentMD5File();
@@ -77,28 +69,16 @@ public class AssetBundle_UploadInspect : MonoBehaviour
 		}
 
 		File.WriteAllText(writePath, sb.ToString());
-	}
 
-	string GetMD5(byte[] buffer)
-	{
-		byte[] returnBytes;
-		MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-		returnBytes = md5.ComputeHash(buffer);
-		string strMD5 = BitConverter.ToString(returnBytes);
-
-		return strMD5;
+		Debug.Log("写入  MD5");
 	}
 	string GetMD5(string fullPath)
 	{
 		byte[] buffer = null;
 		try
-		{
-			buffer = File.ReadAllBytes(fullPath);
-		}
+		{ buffer = File.ReadAllBytes(fullPath); }
 		catch
-		{
-			Debug.Log("GetFileBytes Wrong    " + fullPath);
-		}
+		{ Debug.Log("GetFileBytes Wrong    " + fullPath); }
 
 		byte[] returnBytes;
 		MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
@@ -106,5 +86,24 @@ public class AssetBundle_UploadInspect : MonoBehaviour
 		string strMD5 = BitConverter.ToString(returnBytes);
 		strMD5 = strMD5.Replace("-", "");
 		return strMD5;
+	}
+
+	void UploadAssetBundle_Method()
+	{
+		UploadItem[] items = new UploadItem[Dic_UpLoadFullPath.Keys.Count];
+		int i = 0;
+		foreach (string key in Dic_UpLoadFullPath.Keys)
+		{
+			items[i].FileSaveName = key;
+			items[i].FIlePath = Dic_UpLoadFullPath[key];
+		}
+		CloudServer.instance.Upload_Files(items);
+
+		UploadMD5();
+	}
+
+	void UploadMD5()
+	{
+		CloudServer.instance.Upload_FileByPath("Assets_MD5", AppFacade.instance.Client.GetPersisdentMD5File());
 	}
 }
