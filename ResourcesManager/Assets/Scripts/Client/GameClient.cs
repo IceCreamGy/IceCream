@@ -8,7 +8,7 @@ public abstract class GameClient : IClient
 	private string data_path = Application.persistentDataPath+ AppName + "/data";                 //资源路径
 	private string lua_path = Application.persistentDataPath + AppName + "/luacode";             //lua路径
 	private string persistent_path = Application.persistentDataPath + AppName ;                //持久化目录
-	private string md5_path = Application.persistentDataPath + AppName + "/md5.txt";               //持久化目录下的md5
+	private string md5_path = Application.persistentDataPath + AppName + "/md5.txt";               //本地 持久化目录下的md5
 	private string server_temp_md5_path = Application.persistentDataPath + AppName + "/server_md5.txt";               //服务器最新md5
 	private string depend_text_name = Application.persistentDataPath + AppName + "/data/depend_text.txt";            //依赖记录文件                                                                                                               
 	private string log_path = Application.persistentDataPath + AppName + "/log";                                 //日志目录

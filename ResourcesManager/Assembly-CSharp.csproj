@@ -61,22 +61,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Arts\Modle\benghuai\AutoRotation.cs" />
-    <Compile Include="Assets\Scripts\AppConst.cs" />
     <Compile Include="Assets\Scripts\AppFacade.cs" />
     <Compile Include="Assets\Scripts\AssetBundle\AssetBundle_UploadInspect.cs" />
-    <Compile Include="Assets\Scripts\AssetBundleBuild_Config.cs" />
-    <Compile Include="Assets\Scripts\AssetBundleConfig.cs" />
+    <Compile Include="Assets\Scripts\AssetBundle\AssetBundleBuild_Config.cs" />
+    <Compile Include="Assets\Scripts\AssetBundle\AssetBundleConfig.cs" />
     <Compile Include="Assets\Scripts\Client\AndroidClient.cs" />
     <Compile Include="Assets\Scripts\Client\GameClient.cs" />
     <Compile Include="Assets\Scripts\Client\IClient.cs" />
     <Compile Include="Assets\Scripts\Client\IOSClient.cs" />
     <Compile Include="Assets\Scripts\Client\WindowsClient.cs" />
-    <Compile Include="Assets\Scripts\CloudServer\AppControl.cs" />
-    <Compile Include="Assets\Scripts\CloudServer\CloudServer.cs" />
-    <Compile Include="Assets\Scripts\CloudServer\DownLoadControl.cs" />
-    <Compile Include="Assets\Scripts\CRC32.cs" />
     <Compile Include="Assets\Scripts\GameStart.cs" />
+    <Compile Include="Assets\Scripts\Manager\BaseManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\CloudServer\CloudServer.cs" />
+    <Compile Include="Assets\Scripts\Manager\CloudServer\DownLoadControl.cs" />
+    <Compile Include="Assets\Scripts\Manager\UpdateManager.cs" />
+    <Compile Include="Assets\Scripts\Model\AppConst.cs" />
     <Compile Include="Assets\Scripts\Model\MD5_FileInfo.cs" />
+    <Compile Include="Assets\Scripts\Tools\CRC32.cs" />
     <None Include="Assets\Arts\Shaders\Water.shader" />
     <None Include="Assets\Arts\Shaders\benghuai.shader" />
     <None Include="Assets\Arts\Shaders\cloud.shader" />
