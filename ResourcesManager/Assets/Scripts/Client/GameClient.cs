@@ -23,7 +23,7 @@ public abstract class GameClient : IClient
 
 	public abstract string GetHttpServerBundleDir();
 
-	public abstract string GetHttpServerMD5();
+	public abstract string GetHttpServerMD5Path();
 
 
 	public string GetLogPath()
@@ -41,7 +41,7 @@ public abstract class GameClient : IClient
 		return md5_path;
 	}
 
-	public string GetPersisdentPath()
+	public string GetPersistentPath()
 	{
 		return persistent_path;
 	}

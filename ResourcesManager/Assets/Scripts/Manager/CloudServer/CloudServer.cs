@@ -126,6 +126,8 @@ public class CloudServer : MonoBehaviour
 		finally
 		{
 			thread.Abort();
+
+			Debug.Log("上传完成");
 		}
 	}
 

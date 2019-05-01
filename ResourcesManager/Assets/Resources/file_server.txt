@@ -1,1 +1,1 @@
-http://10.0.14.35:12345
+hellogaoyuan.oss-cn-beijing.aliyuncs.com

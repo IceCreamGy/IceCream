@@ -8,7 +8,7 @@ public class AndroidClient : GameClient
 	private string http_md5 = "android/md5.txt";                    //平台下的MD5文件下载路径
 	private string http_bundle_download_dir = "android";           //bundle包下载目录
 
-	public override string GetHttpServerMD5()
+	public override string GetHttpServerMD5Path()
 	{
 		return http_md5;
 	}

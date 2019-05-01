@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using UnityEditor;
 
 //检索出StreamingAsset 文件夹中，需要上传的AssetBundle
-public class AssetBundle_UploadInspect : MonoBehaviour
+public class AssetBundle_UploadInspect : BaseManager
 {
 	public List<string> FileList = new List<string>();
 	public static Dictionary<string, string> Dic_UpLoadFullPath = new Dictionary<string, string>();
@@ -33,6 +33,8 @@ public class AssetBundle_UploadInspect : MonoBehaviour
 			if (childName.Contains("manifest") || childName.Contains("meta") || childName.Contains("StreamingAssets"))
 				continue;
 
+			//childName = Path.Combine(AppFacade.instance.Client.GetHttpServerBundleDir(), childName);
+			//childName = Util.StandardlizePath(childName);
 			childName = AppFacade.instance.Client.GetHttpServerBundleDir() + "/" + childName;
 			FileList.Add(childName);
 			Dic_UpLoadFullPath.Add(childName, childInfo[i].FullName);
@@ -43,16 +45,16 @@ public class AssetBundle_UploadInspect : MonoBehaviour
 	}
 	void WriteMD5()
 	{
-		if (!Directory.Exists(AppFacade.instance.Client.GetPersisdentPath()))
-		{
-			Directory.CreateDirectory(AppFacade.instance.Client.GetPersisdentPath());
-		}
-		if (!File.Exists(AppFacade.instance.Client.GetPersisdentMD5File()))
-		{
-			File.Create(AppFacade.instance.Client.GetPersisdentMD5File()).Dispose();
-		}
+		//if (!Directory.Exists(AppFacade.instance.Client.GetPersistentPath()))
+		//{
+		//	Directory.CreateDirectory(AppFacade.instance.Client.GetPersistentPath());
+		//}
+		//if (!File.Exists(AppFacade.instance.Client.GetPersisdentMD5File()))
+		//{
+		//	File.Create(AppFacade.instance.Client.GetPersisdentMD5File()).Dispose();
+		//}
 
-		string writePath = AppFacade.instance.Client.GetPersisdentMD5File();
+		string writePath = Client.GetStreamingMD5File();
 		StringBuilder sb = new StringBuilder();
 
 		foreach (string item in Dic_UpLoadFullPath.Keys)
@@ -69,8 +71,9 @@ public class AssetBundle_UploadInspect : MonoBehaviour
 		}
 
 		File.WriteAllText(writePath, sb.ToString());
+		AssetDatabase.Refresh();
 
-		Debug.Log("写入  MD5");
+		Debug.Log("写入  MD5    " + writePath);
 	}
 	string GetMD5(string fullPath)
 	{
@@ -88,15 +91,20 @@ public class AssetBundle_UploadInspect : MonoBehaviour
 		return strMD5;
 	}
 
-	void UploadAssetBundle_Method()
+	public void UploadAssetBundle_Method()
 	{
+		Debug.Log("开始上传");
+
 		UploadItem[] items = new UploadItem[Dic_UpLoadFullPath.Keys.Count];
 		int i = 0;
 		foreach (string key in Dic_UpLoadFullPath.Keys)
 		{
 			items[i].FileSaveName = key;
 			items[i].FIlePath = Dic_UpLoadFullPath[key];
+
+			i++;
 		}
+
 		CloudServer.instance.Upload_Files(items);
 
 		UploadMD5();
@@ -104,6 +112,6 @@ public class AssetBundle_UploadInspect : MonoBehaviour
 
 	void UploadMD5()
 	{
-		CloudServer.instance.Upload_FileByPath("Assets_MD5", AppFacade.instance.Client.GetPersisdentMD5File());
+		CloudServer.instance.Upload_FileByPath(Client.GetHttpServerMD5Path(), AppFacade.instance.Client.GetPersisdentMD5File());
 	}
 }

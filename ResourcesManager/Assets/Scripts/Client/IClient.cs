@@ -9,7 +9,7 @@ public interface IClient
 	//存放lua脚本的路径
 	string GetLuaPath();
 	//持久化路径
-	string GetPersisdentPath();
+	string GetPersistentPath();
 	/// <summary>
 	/// 本地md5文件存放路径
 	/// </summary>
@@ -18,7 +18,7 @@ public interface IClient
 	//本地存放服务器最新md5的路径
 	string GetPersisdentServerMD5File();
 	//要下载的MD5文件名
-	string GetHttpServerMD5();
+	string GetHttpServerMD5Path();
 	//资源依赖文件
 	string GetResDependFile();
 	//要下载的资源包的目录

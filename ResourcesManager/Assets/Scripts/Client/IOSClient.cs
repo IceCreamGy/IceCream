@@ -13,7 +13,7 @@ public class IOSClient : GameClient
 		return http_bundle_download_dir;
 	}
 
-	public override string GetHttpServerMD5()
+	public override string GetHttpServerMD5Path()
 	{
 		return http_md5;
 	}

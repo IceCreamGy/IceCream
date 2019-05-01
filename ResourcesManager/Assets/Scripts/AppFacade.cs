@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AppFacade : MonoBehaviour
 {
 	//不同平台的接口
 	public IClient Client { get; private set; }
+
+	Dictionary<Type, BaseManager> managerDic = new Dictionary<Type, BaseManager>();
 
 	public static AppFacade instance;
 	private void Awake()
@@ -52,5 +55,8 @@ public class AppFacade : MonoBehaviour
 		return client;
 	}
 
-
+	public MsgManager GetMsgManager()
+	{
+		return managerDic[typeof(MsgManager)] as MsgManager;
+	}
 }
