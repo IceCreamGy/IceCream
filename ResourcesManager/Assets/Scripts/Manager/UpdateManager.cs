@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Text;
 
 public class UpdateManager : BaseManager
 {
-	private Dictionary<string, MD5_FileInfo> old_res_dic;       //旧的资源
-	private Dictionary<string, MD5_FileInfo> new_res_dic;       //服务器中，最新的资源
+	private Dictionary<string, MD5_FileInfo> old_res_dic;       //旧的Md5码
+	private Dictionary<string, MD5_FileInfo> new_res_dic;       //最新的Md5码（从服务器下载的）
 	private Dictionary<string, MD5_FileInfo> need_download_dic;     //需要下载的资源
 	private Dictionary<string, MD5_FileInfo> downloaded_dic;        //已经下载过的资源
+
+	private long res_total_size = 0L;
 
 	//通过按钮点击启动更新
 	public void CheckUpdate()
 	{
-		if (!File.Exists(Client.GetPersisdentMD5File()))
+		if (!File.Exists(Client.GetPersistentMD5File()))
 		{
 			StartCoroutine(MoveStreamingAssetsToPersisdentPath());     //解压到 Persistent
 		}
@@ -25,34 +28,45 @@ public class UpdateManager : BaseManager
 
 	void UpdateRes()
 	{
-		old_res_dic = GetClientMD5Data();
+		old_res_dic = GetMd5_Old();
 		StartCoroutine(DownLoadNewMD5());
+		CheckNeedDownDic();
+
+		if (need_download_dic.Count == 0)
+		{
+			//MsgManager.Broadcast(Msg.Res_DownLoad_Finish, null);
+		}
+		else
+		{
+			//MsgManager.Broadcast(Msg.Res_Download_Start, new object[] { res_total_size });
+
+		}
 	}
 
 	/// <summary>
-	/// 获取存在本地 的老版本MD5码
+	/// 获取存在本地老版本的 MD5码
 	/// </summary>
 	/// <returns></returns>
-	private Dictionary<string, MD5_FileInfo> GetClientMD5Data()
+	private Dictionary<string, MD5_FileInfo> GetMd5_Old()
 	{
 		if (!Directory.Exists(Client.GetPersistentPath()))
 		{
 			Directory.CreateDirectory(Client.GetPersistentPath());
 		}
 
-		if (!File.Exists(Client.GetPersisdentMD5File()))
+		if (!File.Exists(Client.GetPersistentMD5File()))
 		{
-			File.Create(Client.GetPersisdentMD5File()).Dispose();
+			File.Create(Client.GetPersistentMD5File()).Dispose();
 		}
-		string path = AppFacade.instance.Client.GetPersisdentMD5File();
+		string path = AppFacade.instance.Client.GetPersistentMD5File();
 		return GetMD5_Tools(path);
 	}
 
 	/// <summary>
-	/// 获取存在本地  的最新版本MD5码
+	/// 获取存在本地最新的 MD5码
 	/// </summary>
 	/// <returns></returns>
-	private Dictionary<string, MD5_FileInfo> GetServerMD5Data()
+	private Dictionary<string, MD5_FileInfo> GetMd5_New()
 	{
 		string path = AppFacade.instance.Client.GetPersisdentServerMD5File();
 		return GetMD5_Tools(path);
@@ -98,7 +112,7 @@ public class UpdateManager : BaseManager
 
 		//先找到MD5 匹配文件
 		string inFile = Client.GetStreamingMD5File();
-		string outFile = Client.GetPersisdentMD5File();
+		string outFile = Client.GetPersistentMD5File();
 		if (File.Exists(outFile)) File.Delete(outFile);
 
 		if (Application.platform == RuntimePlatform.Android)
@@ -156,6 +170,10 @@ public class UpdateManager : BaseManager
 		UpdateRes();
 	}
 
+	/// <summary>
+	/// 从网络下载最新的Md5码
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator DownLoadNewMD5()
 	{
 		string ServerMD5Path = Path.Combine(AppConst.Res_Download_Address, Client.GetHttpServerMD5Path());
@@ -177,5 +195,91 @@ public class UpdateManager : BaseManager
 		www.Dispose();
 
 		yield return new WaitForEndOfFrame();
+	}
+
+	/// <summary>
+	/// 检查出需要更新的资源
+	/// </summary>
+	void CheckNeedDownDic()
+	{
+		new_res_dic = GetMd5_New();
+		need_download_dic = new Dictionary<string, MD5_FileInfo>();
+		downloaded_dic = new Dictionary<string, MD5_FileInfo>();
+
+		foreach (var pair in new_res_dic)
+		{
+			if (!old_res_dic.ContainsKey(pair.Key))
+			{
+				//1.不包含的    
+				need_download_dic.Add(pair.Key, pair.Value);
+				res_total_size += pair.Value.Size;
+			}
+			else if (!old_res_dic[pair.Key].MD5.Equals(pair.Value.MD5))
+			{
+				//2.不一样的Md5
+				need_download_dic.Add(pair.Key, pair.Value);
+				res_total_size += pair.Value.Size;
+			}
+			else
+			{
+				//3.  本地与服务器一致的
+				downloaded_dic.Add(pair.Key, pair.Value);
+			}
+		}
+	}
+
+	/// <summary>
+	/// 下载需要更新的资源
+	/// </summary>
+	/// <param name="needDownload_dic"></param>
+	/// <returns></returns>
+	IEnumerator DownloadAsset(Dictionary<string, MD5_FileInfo> needDownload_dic)
+	{
+		int has_download_count = 0;
+		int need_download_count = needDownload_dic.Count;
+		foreach (var pair in needDownload_dic)
+		{
+			string path = Util.PathCombine(AppConst.Res_Download_Address, Client.GetHttpServerBundleDir(), pair.Key);
+			WWW www = new WWW(path);
+			while (!www.isDone)
+			{
+				yield return null;
+			}
+			if (string.IsNullOrEmpty(www.error))
+			{
+				string file_path = Util.PathCombine(Client.GetPersistentPath(), pair.Key);
+				string file_md5 = Util.GetBytesMD5(www.bytes);
+				if (string.Equals(file_md5, pair.Value.MD5))    //下载完成后，对Md5的教研
+				{
+					string directory = file_path.Substring(0, file_path.LastIndexOf('/'));
+					if (!Directory.Exists(directory))
+					{
+						Directory.CreateDirectory(directory);
+					}
+					File.WriteAllBytes(file_path, www.bytes);
+					downloaded_dic.Add(pair.Key, pair.Value);
+					has_download_count++;
+					MsgManager.Broadcast(Msg.Res_Download_One, new object[] { (float)has_download_count / need_download_count });
+				}
+				else
+				{
+
+				}
+			}
+			else
+			{
+				Debug.Log("下载出错  " + pair.Key);
+			}
+		}
+	}
+
+	void ExportDownloadedMD5(Dictionary<string,MD5_FileInfo> dic)
+	{
+		StringBuilder sb = new StringBuilder();
+		foreach (var pair in dic)
+		{
+			sb.AppendLine(string.Format("{0}|{1}|{2}", pair.Value.Name, pair.Value.MD5, pair.Value.Size));
+		}
+		File.WriteAllText(Client.GetPersistentMD5File(), sb.ToString());
 	}
 }

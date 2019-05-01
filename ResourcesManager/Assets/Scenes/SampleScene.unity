@@ -523,7 +523,7 @@ Prefab:
     - target: {fileID: 224573630949652136, guid: e0d31c9ebd5783147bbbdeb3425bf14d,
         type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0.000000035561015
+      value: 0.000000035561023
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0d31c9ebd5783147bbbdeb3425bf14d, type: 2}

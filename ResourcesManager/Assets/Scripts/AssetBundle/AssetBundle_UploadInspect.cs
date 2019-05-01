@@ -112,6 +112,6 @@ public class AssetBundle_UploadInspect : BaseManager
 
 	void UploadMD5()
 	{
-		CloudServer.instance.Upload_FileByPath(Client.GetHttpServerMD5Path(), AppFacade.instance.Client.GetPersisdentMD5File());
+		CloudServer.instance.Upload_FileByPath(Client.GetHttpServerMD5Path(), AppFacade.instance.Client.GetPersistentMD5File());
 	}
 }

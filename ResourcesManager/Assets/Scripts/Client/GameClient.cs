@@ -36,7 +36,7 @@ public abstract class GameClient : IClient
 		return lua_path;
 	}
 
-	public string GetPersisdentMD5File()
+	public string GetPersistentMD5File()
 	{
 		return md5_path;
 	}
