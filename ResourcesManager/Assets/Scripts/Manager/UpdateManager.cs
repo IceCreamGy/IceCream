@@ -13,9 +13,16 @@ public class UpdateManager : BaseManager
 
 	private long res_total_size = 0L;
 
+	private void Start()
+	{
+		MsgManager.Register(Msg.CheckRes, this, "CheckUpdate");
+	}
+
 	//通过按钮点击启动更新
 	public void CheckUpdate()
 	{
+		Debug.Log("执行更新");
+
 		if (!File.Exists(Client.GetPersistentMD5File()))
 		{
 			StartCoroutine(MoveStreamingAssetsToPersisdentPath());     //解压到 Persistent
@@ -34,12 +41,12 @@ public class UpdateManager : BaseManager
 
 		if (need_download_dic.Count == 0)
 		{
-			//MsgManager.Broadcast(Msg.Res_DownLoad_Finish, null);
+			MsgManager.Broadcast(Msg.Res_DownLoad_Finish, null);
 		}
 		else
 		{
-			//MsgManager.Broadcast(Msg.Res_Download_Start, new object[] { res_total_size });
-
+			MsgManager.Broadcast(Msg.Res_Download_Start, new object[] { res_total_size });
+			StartCoroutine(DownloadAsset(need_download_dic));
 		}
 	}
 
@@ -134,7 +141,7 @@ public class UpdateManager : BaseManager
 
 		//释放所有文件到数据目录
 		string[] files = File.ReadAllLines(outFile);
-		//MsgManager.Broadcast(Msg.Res_Release_Start, new object[] { files.Length });
+		MsgManager.Broadcast(Msg.Res_Release_Start, new object[] { files.Length });
 		foreach (var file in files)
 		{
 			string[] fs = file.Split('|');
@@ -163,7 +170,7 @@ public class UpdateManager : BaseManager
 				}
 				File.Copy(inFile, outFile, true);
 			}
-			//MsgManager.Broadcast(Msg.Res_Release_One, null);
+			MsgManager.Broadcast(Msg.Res_Release_One, null);
 			yield return new WaitForEndOfFrame();
 		}
 		//解包完更新
@@ -263,17 +270,22 @@ public class UpdateManager : BaseManager
 				}
 				else
 				{
-
+					//教研出错的话，需要加到下载队列中，重新下载
 				}
 			}
 			else
 			{
 				Debug.Log("下载出错  " + pair.Key);
 			}
+			if (has_download_count == need_download_count)
+			{
+				ExportDownloadedMD5(downloaded_dic);
+				MsgManager.Broadcast(Msg.Res_DownLoad_Finish, null);
+			}
 		}
 	}
 
-	void ExportDownloadedMD5(Dictionary<string,MD5_FileInfo> dic)
+	void ExportDownloadedMD5(Dictionary<string, MD5_FileInfo> dic)
 	{
 		StringBuilder sb = new StringBuilder();
 		foreach (var pair in dic)
@@ -281,5 +293,10 @@ public class UpdateManager : BaseManager
 			sb.AppendLine(string.Format("{0}|{1}|{2}", pair.Value.Name, pair.Value.MD5, pair.Value.Size));
 		}
 		File.WriteAllText(Client.GetPersistentMD5File(), sb.ToString());
+	}
+
+	private void OnApplicationQuit()
+	{
+		//程序退出时，保存已经下载完毕的
 	}
 }

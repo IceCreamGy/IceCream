@@ -20,6 +20,7 @@ public class AppFacade : MonoBehaviour
 
 		InitFileServer();
 		Client = GetClient(Application.platform);
+		InitManager();
 	}
 	// Use this for initialization
 	void Start()
@@ -31,6 +32,12 @@ public class AppFacade : MonoBehaviour
 	{
 		TextAsset textAsset = Resources.Load<TextAsset>("file_server");
 		AppConst.Res_Download_Address = textAsset.text;
+	}
+
+	private void InitManager()
+	{
+		managerDic.Add(typeof(MsgManager), gameObject.AddComponent<MsgManager>());
+		managerDic.Add(typeof(UpdateManager), gameObject.AddComponent<UpdateManager>());
 	}
 
 	private IClient GetClient(RuntimePlatform platform)

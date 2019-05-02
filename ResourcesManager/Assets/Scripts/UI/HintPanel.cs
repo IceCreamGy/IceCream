@@ -1,20 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-public class GameStart : MonoBehaviour
+/// <summary>
+/// 提示系统
+/// </summary>
+public class HintPanel : MonoBehaviour
 {
-	public string targetSTR;
+	public Hint_Item item;
 	// Use this for initialization
 	void Start()
 	{
-		Debug.Log(Crc32.GetCrc32(targetSTR));
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 
+	}
+
+	public void AddMessage(string str)
+	{
+		StartCoroutine(item.Hint(str));
 	}
 }

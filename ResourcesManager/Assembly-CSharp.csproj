@@ -70,7 +70,6 @@
     <Compile Include="Assets\Scripts\Client\IClient.cs" />
     <Compile Include="Assets\Scripts\Client\IOSClient.cs" />
     <Compile Include="Assets\Scripts\Client\WindowsClient.cs" />
-    <Compile Include="Assets\Scripts\GameStart.cs" />
     <Compile Include="Assets\Scripts\Manager\BaseManager.cs" />
     <Compile Include="Assets\Scripts\Manager\CloudServer\CloudServer.cs" />
     <Compile Include="Assets\Scripts\Manager\CloudServer\DownLoadControl.cs" />
@@ -80,6 +79,9 @@
     <Compile Include="Assets\Scripts\Model\MD5_FileInfo.cs" />
     <Compile Include="Assets\Scripts\Tools\CRC32.cs" />
     <Compile Include="Assets\Scripts\Tools\Util.cs" />
+    <Compile Include="Assets\Scripts\UI\AssetCheck_UI.cs" />
+    <Compile Include="Assets\Scripts\UI\Hint_Item.cs" />
+    <Compile Include="Assets\Scripts\UI\HintPanel.cs" />
     <None Include="Assets\Arts\Shaders\Water.shader" />
     <None Include="Assets\Scripts\Manager\ReadMe.txt" />
     <None Include="Assets\Arts\Shaders\benghuai.shader" />
@@ -309,6 +311,24 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/74144/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween50.dll</HintPath>
+    </Reference>
+    <Reference Include="DemiLib">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DemiLib/Core/DemiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenPro">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTweenPro/DOTweenPro.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Unity/Unity_2018.2/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -655,6 +675,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>E:/Unity/Unity_2018.2/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{C0F94977-D74A-2C24-7E6A-2DA22B42D60B}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
