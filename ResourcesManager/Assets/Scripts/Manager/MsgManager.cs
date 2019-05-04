@@ -11,9 +11,13 @@ public enum Msg
 
 	CheckRes = 1000,       //检查资源
 
-	Res_Download_Start = 1001,                  //资源开始下载
-	Res_Download_One = 1002,                    //单个下载完成
-	Res_DownLoad_Finish = 1003,                 //资源下载完成
+	Res_Upload_Start = 1001,                  //资源开始上传
+	Res_Upload_One = 1002,                    //单个上传完成
+	Res_Upload_Finish = 1003,                 //资源上传完成
+
+	Res_Download_Start = 1004,                  //资源开始下载
+	Res_Download_One = 1005,                    //单个下载完成
+	Res_DownLoad_Finish = 1006,                 //资源下载完成
 
 }
 
@@ -114,7 +118,7 @@ public class MsgManager : BaseManager
 	/// <summary>
 	/// 广播执行
 	/// </summary>
-	private void Dispach()
+	private void Dispatch()
 	{
 		if (dispacherQueue.Count > 0)
 		{
@@ -144,6 +148,6 @@ public class MsgManager : BaseManager
 
 	private void Update()
 	{
-		Dispach();
+		Dispatch();
 	}
 }

@@ -107,15 +107,23 @@ public class CloudServer : MonoBehaviour
 	}
 	void UploadFiles()
 	{
+		int currentIndex = 0;
+		int NeedUploadCount = ItemArray.Length;
+
+		AppFacade.instance.GetMsgManager().Broadcast(Msg.Res_Upload_One, new object[] { (float)currentIndex / (float)NeedUploadCount });
+
 		try
 		{
 			for (int i = 0; i < ItemArray.Length; i++)
 			{
 				using (var fs = File.Open(ItemArray[i].FIlePath, FileMode.Open))
-				{
+				{				
 					var putObjectRequest = new PutObjectRequest(AppConst.Bucket, ItemArray[i].FileSaveName, fs);
 					putObjectRequest.StreamTransferProgress += Upload_ProgressCallback;
 					client.PutObject(putObjectRequest);
+					AppFacade.instance.GetMsgManager().Broadcast(Msg.Res_Upload_One, new object[] { (float)currentIndex / (float)NeedUploadCount });
+
+					currentIndex++;
 				}
 			}
 		}
@@ -126,7 +134,7 @@ public class CloudServer : MonoBehaviour
 		finally
 		{
 			thread.Abort();
-
+			AppFacade.instance.GetMsgManager().Broadcast(Msg.Res_Upload_Finish, null);
 			Debug.Log("上传完成");
 		}
 	}

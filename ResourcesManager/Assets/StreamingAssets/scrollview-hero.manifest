@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2460959632
+CRC: 711098288
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b2b949e67cc028a9184e1e8b9c319255
+    Hash: e44a86f0cacac7a011e69e2130e10005
   TypeTreeHash:
     serializedVersion: 2
     Hash: b4aab60efc06e60a39f01ecc8c41700a
@@ -34,9 +34,7 @@ ClassTypes:
 Assets:
 - Assets/Arts/Prefab/ScrollView_Hero.prefab
 Dependencies:
-- D:/Git-Project/Resources/ResourcesManager/Assets/StreamingAssets/hero2
-- D:/Git-Project/Resources/ResourcesManager/Assets/StreamingAssets/hero3
-- D:/Git-Project/Resources/ResourcesManager/Assets/StreamingAssets/hero4
-- D:/Git-Project/Resources/ResourcesManager/Assets/StreamingAssets/hero0
-- D:/Git-Project/Resources/ResourcesManager/Assets/StreamingAssets/hero1
-- D:/Git-Project/Resources/ResourcesManager/Assets/StreamingAssets/hero5
+- C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/StreamingAssets/mengjun-2
+- C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/StreamingAssets/mengjun-3
+- C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/StreamingAssets/mengjun-4
+- C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/StreamingAssets/mengjun-5

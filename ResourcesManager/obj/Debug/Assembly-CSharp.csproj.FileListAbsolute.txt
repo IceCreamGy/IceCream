@@ -560,3 +560,16 @@ C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug
 C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\System.Xml.XmlSerializer.dll
 C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\System.Xml.XPath.dll
 C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\System.Xml.XPath.XDocument.dll
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DemiLib.dll
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTween.dll
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTween43.dll
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTween46.dll
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTween50.dll
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTweenPro.dll
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTween46.xml
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTween50.xml
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DemiLib.xml
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTween43.xml
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTween.xml
+C:\Users\74144\Documents\GitHub\ResourcesManager\ResourcesManager\Temp\bin\Debug\DOTweenPro.xml

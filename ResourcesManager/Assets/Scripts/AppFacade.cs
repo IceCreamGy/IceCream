@@ -10,6 +10,9 @@ public class AppFacade : MonoBehaviour
 
 	Dictionary<Type, BaseManager> managerDic = new Dictionary<Type, BaseManager>();
 
+	public Transform Canvas { get; private set; }
+	public Transform GoContainer { get; private set; }
+
 	public static AppFacade instance;
 	private void Awake()
 	{
@@ -20,6 +23,14 @@ public class AppFacade : MonoBehaviour
 
 		InitFileServer();
 		Client = GetClient(Application.platform);
+
+		DontDestroyOnLoad(this.gameObject);
+
+		Canvas = GameObject.Find("Canvas").transform;
+		DontDestroyOnLoad(Canvas.gameObject);
+		GoContainer = new GameObject("GoContainer").transform;
+		GoContainer.transform.SetParent(transform);
+
 		InitManager();
 	}
 	// Use this for initialization

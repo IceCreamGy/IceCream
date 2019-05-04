@@ -284,11 +284,14 @@
     <Reference Include="Aliyun.OSS">
       <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Aliyun/Aliyun.OSS.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/74144/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+    <Reference Include="DemiLib">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DemiLib/Core/DemiLib.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/Users/74144/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+    <Reference Include="DOTween">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween43.dll</HintPath>
     </Reference>
     <Reference Include="DOTween46">
       <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween46.dll</HintPath>
@@ -296,17 +299,14 @@
     <Reference Include="DOTween50">
       <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween50.dll</HintPath>
     </Reference>
-    <Reference Include="DemiLib">
-      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DemiLib/Core/DemiLib.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween43">
-      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween43.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
-    </Reference>
     <Reference Include="DOTweenPro">
       <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Assets/Plugins/Demigiant/DOTweenPro/DOTweenPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>C:/Users/74144/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StandardEvents">
+      <HintPath>C:/Users/74144/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Unity/Unity_2018.2/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

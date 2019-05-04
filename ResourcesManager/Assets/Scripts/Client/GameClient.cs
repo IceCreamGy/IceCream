@@ -36,7 +36,7 @@ public abstract class GameClient : IClient
 		return lua_path;
 	}
 
-	public string GetPersistentMD5File()
+	public string GetPersistentMD5Path()
 	{
 		return md5_path;
 	}
@@ -61,7 +61,7 @@ public abstract class GameClient : IClient
 		return streaming_data_path;
 	}
 
-	public string GetStreamingMD5File()
+	public string GetStreamingMD5Path()
 	{
 		return streaming_md5_file;
 	}

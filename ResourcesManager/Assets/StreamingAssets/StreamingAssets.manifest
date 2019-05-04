@@ -1,37 +1,35 @@
 ManifestFileVersion: 0
-CRC: 324934429
+CRC: 234106657
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: hero2
-      Dependencies: {}
-    Info_1:
-      Name: hero3
-      Dependencies: {}
-    Info_2:
-      Name: hero4
-      Dependencies: {}
-    Info_3:
-      Name: hero0
-      Dependencies: {}
-    Info_4:
-      Name: hero1
-      Dependencies: {}
-    Info_5:
-      Name: hero5
-      Dependencies: {}
-    Info_6:
-      Name: hero6
-      Dependencies: {}
-    Info_7:
-      Name: hero7
-      Dependencies: {}
-    Info_8:
       Name: scrollview-hero
       Dependencies:
-        Dependency_0: hero2
-        Dependency_1: hero3
-        Dependency_2: hero4
-        Dependency_3: hero0
-        Dependency_4: hero1
-        Dependency_5: hero5
+        Dependency_0: mengjun-2
+        Dependency_1: mengjun-3
+        Dependency_2: mengjun-4
+        Dependency_3: mengjun-5
+    Info_1:
+      Name: mengjun-1
+      Dependencies: {}
+    Info_2:
+      Name: mengjun-0
+      Dependencies: {}
+    Info_3:
+      Name: mengjun-2
+      Dependencies: {}
+    Info_4:
+      Name: mengjun-3
+      Dependencies: {}
+    Info_5:
+      Name: mengjun-4
+      Dependencies: {}
+    Info_6:
+      Name: mengjun-5
+      Dependencies: {}
+    Info_7:
+      Name: mengjun-6
+      Dependencies: {}
+    Info_8:
+      Name: mengjun-7
+      Dependencies: {}

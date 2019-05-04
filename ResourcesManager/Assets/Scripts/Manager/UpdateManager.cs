@@ -23,7 +23,7 @@ public class UpdateManager : BaseManager
 	{
 		Debug.Log("执行更新");
 
-		if (!File.Exists(Client.GetPersistentMD5File()))
+		if (!File.Exists(Client.GetPersistentMD5Path()))
 		{
 			StartCoroutine(MoveStreamingAssetsToPersisdentPath());     //解压到 Persistent
 		}
@@ -56,16 +56,7 @@ public class UpdateManager : BaseManager
 	/// <returns></returns>
 	private Dictionary<string, MD5_FileInfo> GetMd5_Old()
 	{
-		if (!Directory.Exists(Client.GetPersistentPath()))
-		{
-			Directory.CreateDirectory(Client.GetPersistentPath());
-		}
-
-		if (!File.Exists(Client.GetPersistentMD5File()))
-		{
-			File.Create(Client.GetPersistentMD5File()).Dispose();
-		}
-		string path = AppFacade.instance.Client.GetPersistentMD5File();
+		string path = AppFacade.instance.Client.GetPersistentMD5Path();
 		return GetMD5_Tools(path);
 	}
 
@@ -118,8 +109,8 @@ public class UpdateManager : BaseManager
 		Directory.CreateDirectory(persistentPath);
 
 		//先找到MD5 匹配文件
-		string inFile = Client.GetStreamingMD5File();
-		string outFile = Client.GetPersistentMD5File();
+		string inFile = Client.GetStreamingMD5Path();
+		string outFile = Client.GetPersistentMD5Path();
 		if (File.Exists(outFile)) File.Delete(outFile);
 
 		if (Application.platform == RuntimePlatform.Android)
@@ -186,7 +177,7 @@ public class UpdateManager : BaseManager
 		string ServerMD5Path = Path.Combine(AppConst.Res_Download_Address, Client.GetHttpServerMD5Path());
 		string md5_url = Util.StandardlizePath(ServerMD5Path);
 		md5_url = "http://" + md5_url;
-		Debug.Log(md5_url);
+
 		WWW www = new WWW(md5_url);
 		while (!www.isDone)
 		{
@@ -197,6 +188,10 @@ public class UpdateManager : BaseManager
 			Debug.LogError(www.error);
 			www.Dispose();
 			yield break;
+		}
+		if (!File.Exists(Client.GetPersisdentServerMD5File()))
+		{
+			File.Create(Client.GetPersisdentServerMD5File()).Dispose();
 		}
 		File.WriteAllText(Client.GetPersisdentServerMD5File(), www.text);
 		www.Dispose();
@@ -244,10 +239,13 @@ public class UpdateManager : BaseManager
 	{
 		int has_download_count = 0;
 		int need_download_count = needDownload_dic.Count;
+
 		foreach (var pair in needDownload_dic)
 		{
 			string path = Util.PathCombine(AppConst.Res_Download_Address, Client.GetHttpServerBundleDir(), pair.Key);
-			WWW www = new WWW(path);
+			Debug.Log(path);
+
+			WWW www = new WWW("http://" + path);
 			while (!www.isDone)
 			{
 				yield return null;
@@ -266,22 +264,29 @@ public class UpdateManager : BaseManager
 					File.WriteAllBytes(file_path, www.bytes);
 					downloaded_dic.Add(pair.Key, pair.Value);
 					has_download_count++;
-					MsgManager.Broadcast(Msg.Res_Download_One, new object[] { (float)has_download_count / need_download_count });
+					MsgManager.Broadcast(Msg.Res_Download_One, new object[] { (float)has_download_count / (float)need_download_count, pair.Key });
 				}
 				else
 				{
 					//教研出错的话，需要加到下载队列中，重新下载
+					Debug.LogError("下载出错  " + pair.Key);
 				}
 			}
 			else
 			{
-				Debug.Log("下载出错  " + pair.Key);
+				Debug.Log(string.Format("下载出错    {0}    因为   {1} ", pair.Key, www.error));
 			}
-			if (has_download_count == need_download_count)
-			{
-				ExportDownloadedMD5(downloaded_dic);
-				MsgManager.Broadcast(Msg.Res_DownLoad_Finish, null);
-			}
+		}
+
+		if (has_download_count == need_download_count)
+		{
+			ExportDownloadedMD5(downloaded_dic);
+			MsgManager.Broadcast(Msg.Res_DownLoad_Finish, null);
+			Debug.Log("下载完成");
+		}
+		else
+		{
+			Debug.Log(string.Format("下载进度  download_count    {0}   need_download  {1}", has_download_count, need_download_count));
 		}
 	}
 
@@ -292,7 +297,7 @@ public class UpdateManager : BaseManager
 		{
 			sb.AppendLine(string.Format("{0}|{1}|{2}", pair.Value.Name, pair.Value.MD5, pair.Value.Size));
 		}
-		File.WriteAllText(Client.GetPersistentMD5File(), sb.ToString());
+		File.WriteAllText(Client.GetPersistentMD5Path(), sb.ToString());
 	}
 
 	private void OnApplicationQuit()

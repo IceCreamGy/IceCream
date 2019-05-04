@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 提示系统
 /// </summary>
-public class HintPanel : MonoBehaviour
+public class Panel_Hint : MonoBehaviour
 {
 	public Hint_Item item;
 	// Use this for initialization

@@ -45,16 +45,7 @@ public class AssetBundle_UploadInspect : BaseManager
 	}
 	void WriteMD5()
 	{
-		//if (!Directory.Exists(AppFacade.instance.Client.GetPersistentPath()))
-		//{
-		//	Directory.CreateDirectory(AppFacade.instance.Client.GetPersistentPath());
-		//}
-		//if (!File.Exists(AppFacade.instance.Client.GetPersisdentMD5File()))
-		//{
-		//	File.Create(AppFacade.instance.Client.GetPersisdentMD5File()).Dispose();
-		//}
-
-		string writePath = Client.GetStreamingMD5File();
+		string writePath = Client.GetStreamingMD5Path();
 		StringBuilder sb = new StringBuilder();
 
 		foreach (string item in Dic_UpLoadFullPath.Keys)
@@ -63,6 +54,10 @@ public class AssetBundle_UploadInspect : BaseManager
 			string pathInAsset = Dic_UpLoadFullPath[item].Replace(strSimplePath, "");
 			pathInAsset = pathInAsset.Replace("\\", "");
 
+			if (pathInAsset.Contains("md5")|| pathInAsset.Contains("Md5")|| pathInAsset.Contains("MD5"))
+			{
+				continue;
+			}
 			sb.Append(pathInAsset + "|");
 			sb.Append(GetMD5(Dic_UpLoadFullPath[item]) + "|");
 			sb.Append(Dic_UpLoadSize[item]);
@@ -71,7 +66,6 @@ public class AssetBundle_UploadInspect : BaseManager
 		}
 
 		File.WriteAllText(writePath, sb.ToString());
-		AssetDatabase.Refresh();
 
 		Debug.Log("写入  MD5    " + writePath);
 	}
@@ -94,6 +88,7 @@ public class AssetBundle_UploadInspect : BaseManager
 	public void UploadAssetBundle_Method()
 	{
 		Debug.Log("开始上传");
+		AppFacade.instance.GetMsgManager().Broadcast(Msg.Res_Upload_Start, null);
 
 		UploadItem[] items = new UploadItem[Dic_UpLoadFullPath.Keys.Count];
 		int i = 0;
@@ -112,6 +107,6 @@ public class AssetBundle_UploadInspect : BaseManager
 
 	void UploadMD5()
 	{
-		CloudServer.instance.Upload_FileByPath(Client.GetHttpServerMD5Path(), AppFacade.instance.Client.GetPersistentMD5File());
+		CloudServer.instance.Upload_FileByPath(Client.GetHttpServerMD5Path(), AppFacade.instance.Client.GetStreamingMD5Path());
 	}
 }
