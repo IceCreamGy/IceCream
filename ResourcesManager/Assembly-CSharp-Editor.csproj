@@ -60,8 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Editor\BundleEditor.cs" />
-    <Compile Include="Assets\Scripts\Editor\EditorTools.cs" />
+    <Compile Include="Assets\Editor\BundleEditor.cs" />
+    <Compile Include="Assets\Editor\EditorTools.cs" />
+    <Compile Include="Assets\Editor\ResExporter\EditorConst.cs" />
+    <Compile Include="Assets\Editor\ResExporter\ResExporter.Base.cs" />
+    <Compile Include="Assets\Editor\ResExporter\ResExporter.UI.cs" />
+    <None Include="Assets\Editor\ReadMe_Editor.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/74144/Documents/GitHub/ResourcesManager/ResourcesManager/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
