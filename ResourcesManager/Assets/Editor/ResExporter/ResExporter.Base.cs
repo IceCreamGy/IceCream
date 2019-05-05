@@ -11,10 +11,11 @@ public partial class ResExporter
 	/// <summary>
 	/// 在指定目录下，搜索对应pattern的资源，生成(资源路径——包路径的映射)
 	/// </summary>
-	/// <param name="inputPath"></param>
-	/// <param name="outPath"></param> 
-	/// <param name="searchPattern"></param>
-	/// <returns></returns>
+	/// <param name="res2bundle_dic">    需要修改的字典</param>
+	/// <param name="inputPath">    查询的路径</param>
+	/// <param name="outPath">   资源的导出路径</param>
+	/// <param name="searchPattern">   过滤参数</param>
+	/// <param name="prefix">   前缀</param>
 	public static void GetResMap(Dictionary<string, string> res2bundle_dic, string inputPath, string outPath, string searchPattern, string prefix)
 	{
 		if (!Directory.Exists(StandardlizePath(inputPath)))

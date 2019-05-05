@@ -32,23 +32,29 @@ public partial class ResExporter
 		ui_res_bundle_dic = new Dictionary<string, string>();
 		ui_dep_res_bundle_dic = new Dictionary<string, string>();
 
-		//字体文件
-		GetResMap(ui_res_bundle_dic, "Assets/BundleRes/UI/Font", "font/", "*.ttf", "f_");
+		//预制体文件
 		GetResMap(ui_res_bundle_dic, "Assets/BundleRes/UI/UIPanel/Prefab", "ui/", "*.prefab", "ui_");
 
 		GetResDepencies(ui_res_bundle_dic, ref ui_dep_res_bundle_dic, new string[] { "png", "jpg" }, "texture/", "t_");
 		//GetResDepencies(ui_res_bundle_dic, ref ui_dep_res_bundle_dic, new string[] { "mat" }, "materia/", "m_");
 		GetResDepencies(ui_res_bundle_dic, ref ui_dep_res_bundle_dic, new string[] { "shader" }, "shader/", "s_");
 		CombineDictionary(ui_res_bundle_dic, ui_dep_res_bundle_dic);
-		ClearBundleNames();
+
+		//字体文件
+		GetResMap(ui_res_bundle_dic, "Assets/BundleRes/UI/Font", "font/", "*.ttf", "f_");
 
 		//texture单独打包
 		GetResMap(ui_res_bundle_dic, "Assets/BundleRes/UI/UIPanel/Texture", "texture/", "*.png", "t_");
+
 		//sprite单独打包
 		Dictionary<string, string> sprite_map = GetSpriteBundlesMap("Assets/BundleRes/UI/UIPanel/Altlas", "texture/", "*.png", "a_");
 		CombineDictionary(ui_res_bundle_dic, sprite_map);
 
+		//设置 AB包名字
+		ClearBundleNames();
 		SetAssetImporter(ui_res_bundle_dic);
+
+		//打包
 		Export(outPath, target);
 		//  ExportBundleDependInfo(outPath);   导出最新的资源依赖数据
 		ClearBundleNames();     //再一次清楚，是防止“meta”文件改变，给版本控制带来困扰

@@ -134,7 +134,7 @@ public class MsgManager : BaseManager
 					{
 						Dictionary<object, MsgRegister> dic = msg_dic[msg];
 						IEnumerator iter = dic.GetEnumerator();
-						while (iter.MoveNext())
+						while (iter.MoveNext())          //迭代器模式
 						{
 							KeyValuePair<object, MsgRegister> pair = (KeyValuePair<object, MsgRegister>)iter.Current;
 							MsgRegister register = pair.Value;
