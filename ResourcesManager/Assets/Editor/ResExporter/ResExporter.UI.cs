@@ -56,8 +56,8 @@ public partial class ResExporter
 
 		//打包
 		Export(outPath, target);
-		//  ExportBundleDependInfo(outPath);   导出最新的资源依赖数据
-		ClearBundleNames();     //再一次清楚，是防止“meta”文件改变，给版本控制带来困扰
+		ExportBundleDependInfo(outPath);     //导出最新的资源依赖数据
+		ClearBundleNames();     //再一次清除，是防止“meta”文件改变，给版本控制带来困扰
 	}
 
 	public static Dictionary<string, string> GetSpriteBundlesMap(string inputPath, string outPath, string search_pattern, string prefix)

@@ -95,6 +95,80 @@ public partial class ResExporter
 		BuildPipeline.BuildAssetBundles(outputPath, BuildAssetBundleOptions.ChunkBasedCompression, target);
 	}
 	/// <summary>
+	/// 导出最新的依赖资源数据
+	/// </summary>
+	/// <param name="outputPath"></param>
+	public static void ExportBundleDependInfo(string outputPath)
+	{
+		string manifest = outputPath.Substring(outputPath.LastIndexOf("/") + 1);
+
+		AssetBundle ab = AssetBundle.LoadFromFile(Path.Combine(outputPath, manifest));
+		AssetBundleManifest assetBundleManifest = (AssetBundleManifest)ab.LoadAsset("AssetBundleManifest");
+		string[] bundles = assetBundleManifest.GetAllAssetBundles();
+
+		//加载旧的依赖资源数据，并更新
+		Dictionary<string, List<string>> bundle_depend_dic = GetOldDependText(outputPath);
+		foreach (var bundle in bundles)
+		{
+			string[] depends = assetBundleManifest.GetAllDependencies(bundle);
+			bundle_depend_dic[bundle] = new List<string>(depends);
+		}
+
+		ExportDependInfo(bundle_depend_dic, outputPath);
+	}
+	/// <summary>
+	/// 依赖写回到文本中
+	/// </summary>
+	/// <param name="dic"></param>
+	/// <param name="outputPath"></param>
+	public static void ExportDependInfo(Dictionary<string, List<string>> dic, string outputPath)
+	{
+		StringBuilder sb = new StringBuilder();
+		int count = dic.Count;
+		sb.AppendLine(count.ToString());
+		foreach (var pair in dic)
+		{
+			sb.AppendLine(pair.Key);
+			int dependCount = pair.Value.Count;
+			sb.AppendLine(dependCount.ToString());
+			for (int i = 0; i < dependCount; i++)
+			{
+				sb.AppendLine(pair.Value[i]);
+			}
+		}
+		string filePath = Path.Combine(outputPath, EditorConst.depend_text_name);
+		File.WriteAllText(filePath, sb.ToString());
+	}
+	/// <summary>
+	/// 获得旧的依赖资源数据
+	/// </summary>
+	/// <param name="outputPath"></param>
+	/// <returns></returns>
+	public static Dictionary<string, List<string>> GetOldDependText(string outputPath)
+	{
+		Dictionary<string, List<string>> bundle_depend_dic = new Dictionary<string, List<string>>();
+		string dependText = Path.Combine(outputPath, EditorConst.depend_text_name);
+		if (File.Exists(dependText) == true)
+		{
+			StreamReader reader = new StreamReader(dependText);
+			int bundleCount = Convert.ToInt32(reader.ReadLine());
+			for (int i = 0; i < bundleCount; i++)
+			{
+				string bundleName = reader.ReadLine();
+				int count = Convert.ToInt32(reader.ReadLine());
+				bundle_depend_dic.Add(bundleName, new List<string>());
+				for (int j = 0; j < count; j++)
+				{
+					string dependBundleName = reader.ReadLine();
+					bundle_depend_dic[bundleName].Add(dependBundleName);
+				}
+
+			}
+			reader.Close();
+		}
+		return bundle_depend_dic;
+	}
+	/// <summary>
 	/// 设置资源的bundle名,导出csv，用作资源管理
 	/// </summary>
 	/// <param name="asset2Bundle"></param>
@@ -108,7 +182,7 @@ public partial class ResExporter
 			foreach (string line in lines)
 			{
 				string[] parts = line.Split(',');
-				asset2bundle_dic[parts[0]] = parts[1];
+				asset2bundle_dic[parts[0]] = parts[1];     //读取已有的CSV
 			}
 		}
 
@@ -116,9 +190,9 @@ public partial class ResExporter
 		foreach (var pair in asset2Bundle)
 		{
 			string assetName = Path.GetFileNameWithoutExtension(pair.Key);
-			asset2bundle_dic[assetName] = pair.Value;
+			asset2bundle_dic[assetName] = pair.Value;     //添加到 CSV
 			assetImporter = AssetImporter.GetAtPath(pair.Key);
-			assetImporter.assetBundleName = pair.Value;
+			assetImporter.assetBundleName = pair.Value;      //设置AB包名字
 		}
 		StringBuilder sb = new StringBuilder();
 		foreach (var pair in asset2bundle_dic)
@@ -126,8 +200,6 @@ public partial class ResExporter
 			sb.AppendLine(string.Format("{0},{1}", pair.Key, pair.Value));
 		}
 		File.WriteAllText(res2bundlePath, sb.ToString());
-
-
 	}
 	/// <summary>
 	/// 资源数据合并
@@ -141,5 +213,4 @@ public partial class ResExporter
 			dic1.Add(pair.Key, pair.Value);
 		}
 	}
-
 }
